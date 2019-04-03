@@ -5,7 +5,6 @@ table create Customer(
 	cust_id number(8) not null,
 	postal_id number(8),
 	city varchar(20),
-	street varchar(20),
 	ph_no number(12),
 	primary key(cust_id)
 );
