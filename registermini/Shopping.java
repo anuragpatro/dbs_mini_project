@@ -7,7 +7,7 @@ package registermini;
 
 /**
  *
- * @author MAHE
+ * @author SURYANSH
  */
 public class Shopping extends javax.swing.JFrame {
 
