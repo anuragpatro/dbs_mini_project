@@ -7,7 +7,7 @@ package registermini;
 
 /**
  *
- * @author MAHE
+ * @author SURYANSH
  */
 public class LoginKaro extends javax.swing.JFrame {
 
