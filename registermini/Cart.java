@@ -7,7 +7,7 @@ package registermini;
 
 /**
  *
- * @author MAHE
+ * @author SURYANSH
  */
 public class Cart extends javax.swing.JFrame {
 
