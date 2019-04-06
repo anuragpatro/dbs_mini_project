@@ -1,4 +1,4 @@
-table create Customer(
+create table Customer(
 	fname varchar(20) not null,
 	mname varchar(20),
 	lname varchar(20) not null,
