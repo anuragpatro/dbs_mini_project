@@ -7,7 +7,7 @@ package registermini;
 
 /**
  *
- * @author MAHE
+ * @author SURYANSH
  */
 public class Electronics extends javax.swing.JFrame {
 
