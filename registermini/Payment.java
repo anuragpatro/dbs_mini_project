@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package registermini;
-
+import javax.swing.*;
 /**
  *
  * @author anurag
  */
+
+
 public class Payment extends javax.swing.JFrame {
 
     /**
@@ -27,44 +29,45 @@ public class Payment extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jpanel2 = new javax.swing.JPanel();
-        GotoCat2 = new javax.swing.JButton();
+        body = new javax.swing.JPanel();
+        Login = new javax.swing.JButton();
         GoToCart2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        qrcode = new javax.swing.JLabel();
+        paymentdone = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Payment");
 
-        jPanel1.setBackground(new java.awt.Color(248, 148, 6));
+        header.setBackground(new java.awt.Color(248, 148, 6));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/registermini/Shopify_logo_small.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
+        header.setLayout(headerLayout);
+        headerLayout.setHorizontalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(194, 194, 194))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        headerLayout.setVerticalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jpanel2.setBackground(new java.awt.Color(44, 62, 80));
+        body.setBackground(new java.awt.Color(44, 62, 80));
 
-        GotoCat2.setText("GO TO CATEGORIES");
-        GotoCat2.addActionListener(new java.awt.event.ActionListener() {
+        Login.setText("Log Out?");
+        Login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GotoCat2ActionPerformed(evt);
+                LoginActionPerformed(evt);
             }
         });
 
@@ -79,44 +82,49 @@ public class Payment extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(240, 240, 240));
         jLabel2.setText("PAYMENT PORTAL");
 
-        jLabel3.setText("Shipper details, date and name");
+        qrcode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/registermini/qrcode.png"))); // NOI18N
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/registermini/qrcode.png"))); // NOI18N
+        paymentdone.setText("Click if Payment done!");
+        paymentdone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentdoneActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jpanel2Layout = new javax.swing.GroupLayout(jpanel2);
-        jpanel2.setLayout(jpanel2Layout);
-        jpanel2Layout.setHorizontalGroup(
-            jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(GotoCat2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 329, Short.MAX_VALUE)
+        javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
+        body.setLayout(bodyLayout);
+        bodyLayout.setHorizontalGroup(
+            bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bodyLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(Login)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(GoToCart2)
                 .addGap(24, 24, 24))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(175, 175, 175))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(105, 105, 105))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(189, 189, 189))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodyLayout.createSequentialGroup()
+                .addContainerGap(189, Short.MAX_VALUE)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bodyLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(paymentdone, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(qrcode))))
+                .addGap(175, 175, 175))
         );
-        jpanel2Layout.setVerticalGroup(
-            jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanel2Layout.createSequentialGroup()
+        bodyLayout.setVerticalGroup(
+            bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodyLayout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 214, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GotoCat2)
+                .addComponent(qrcode, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(paymentdone)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Login)
                     .addComponent(GoToCart2))
                 .addContainerGap())
         );
@@ -125,29 +133,30 @@ public class Payment extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jpanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void GotoCat2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GotoCat2ActionPerformed
+    private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
-        Shopping shop = new Shopping();
-        shop.setVisible(true);
-        shop.pack();
-        shop.setLocationRelativeTo(null);
-        //b.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_GotoCat2ActionPerformed
+        LoginKaro lg = new LoginKaro();
+        lg.setVisible(true);
+        lg.pack();
+        lg.setLocationRelativeTo(null);
+        //b.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+    }//GEN-LAST:event_LoginActionPerformed
 
     private void GoToCart2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoToCart2ActionPerformed
         // TODO add your handling code here:
@@ -158,6 +167,14 @@ public class Payment extends javax.swing.JFrame {
         //b.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_GoToCart2ActionPerformed
+
+    private void paymentdoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentdoneActionPerformed
+        // TODO add your handling code here:
+        //MessageBox msg = new MessageBox();
+        JOptionPane.showMessageDialog(this, "Your payment is done and your goods will be shipped soon. \n Thanks for working with us! \n Good day!",  
+                                   "THANK YOU!", JOptionPane.INFORMATION_MESSAGE); 
+
+    }//GEN-LAST:event_paymentdoneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,20 +205,22 @@ public class Payment extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new Payment().setVisible(true);
+                Payment pay = new Payment();
+                pay.setVisible(true);               
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GoToCart2;
-    private javax.swing.JButton GotoCat2;
+    private javax.swing.JButton Login;
+    private javax.swing.JPanel body;
+    private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jpanel2;
+    private javax.swing.JButton paymentdone;
+    private javax.swing.JLabel qrcode;
     // End of variables declaration//GEN-END:variables
 }

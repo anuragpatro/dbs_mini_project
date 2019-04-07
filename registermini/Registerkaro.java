@@ -5,6 +5,8 @@
  */
 package registermini;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author SURYANSH
@@ -56,8 +58,8 @@ public class Registerkaro extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(400, 589));
-        setPreferredSize(new java.awt.Dimension(400, 589));
+        setMinimumSize(new java.awt.Dimension(400, 687));
+        setPreferredSize(new java.awt.Dimension(400, 687));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(248, 148, 6));
@@ -148,6 +150,11 @@ public class Registerkaro extends javax.swing.JFrame {
         jLabel12.setText("PINCODE");
 
         RegisterButton.setText("REGISTER");
+        RegisterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterButtonActionPerformed(evt);
+            }
+        });
 
         LoginNowButton.setText("LOGIN NOW");
         LoginNowButton.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +203,7 @@ public class Registerkaro extends javax.swing.JFrame {
                         .addComponent(RegisterButton)
                         .addGap(31, 31, 31)
                         .addComponent(LoginNowButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,14 +246,14 @@ public class Registerkaro extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(setpasstf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RegisterButton)
                     .addComponent(LoginNowButton))
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 400, -1));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 400, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -277,6 +284,12 @@ public class Registerkaro extends javax.swing.JFrame {
     private void firstnametfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstnametfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_firstnametfActionPerformed
+
+    private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
+            // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Details have been registered! \n Please proceed to login page!","Registration Successful", JOptionPane.INFORMATION_MESSAGE); 
+
+    }//GEN-LAST:event_RegisterButtonActionPerformed
 
     /**
      * @param args the command line arguments
