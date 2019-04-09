@@ -6,7 +6,8 @@
 package registermini;
 
 import javax.swing.JOptionPane;
-
+import java.sql.*;
+import java.util.Random;
 /**
  *
  * @author SURYANSH
@@ -16,9 +17,105 @@ public class Registerkaro extends javax.swing.JFrame {
     /**
      * Creates new form Registerkaro
      */
+    private int v;
     public Registerkaro() {
         initComponents();
     }
+    
+        private void connect()
+    {
+        try{  
+//step1 load the driver class  
+Class.forName("oracle.jdbc.driver.OracleDriver");  
+  
+//step2 create  the connection object  
+Connection con=DriverManager.getConnection(  
+"jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");  
+
+String s;
+//step3 create the statement object  
+Statement stmt=con.createStatement();
+//s= "select * from veid";
+//ResultSet rs=stmt.executeQuery(s);
+//if(rs.next())
+//v= rs.getInt(1);
+//System.out.println(v);
+int c=0;
+if(!firstnametf.getText().equals("")) c++;
+if(!middlenametf.getText().equals("")) c++;
+if(!lastnametf.getText().equals("")) c++;
+if(!citytf.getText().equals("")) c++;
+if(!emailtf.getText().equals("")) c++;
+if(!mobiletf.getText().equals("")) c++;
+if(!pincodetf.getText().equals("")) c++;
+if(!retypepasstf.getText().equals("")) c++;
+if(!setpasstf.getText().equals("")) c++;
+
+ s="";
+if(c==9)
+{
+    Random rand = new Random();
+
+// Obtain a number between [0 - 49].
+    int n = rand.nextInt(99)+1;
+
+    String pa = new String(setpasstf.getText());
+    String pa1 = new String(retypepasstf.getText());
+    if(pa.equals(pa1))
+    {
+        s = "insert into customer values(?,?,?,?,?,?,?)";
+        PreparedStatement psmt= con.prepareStatement(s);
+        psmt.setString(1,firstnametf.getText());
+        psmt.setString(2,middlenametf.getText());
+        psmt.setString(3,lastnametf.getText());
+        psmt.setString(4,Integer.toString(100+n));
+        psmt.setString(5,pincodetf.getText());
+        psmt.setString(6,citytf.getText());
+        psmt.setString(7,mobiletf.getText());
+        /*s="insert into customer values ('"+firstnametf.getText()+
+                " ' , ' "+middlenametf.getText()+" ' , ' "+lastnametf.getText()
+                +"','"+n+"','"+pincodetf.getText()+"','"+citytf.getText()+
+                "','"+mobiletf.getText()+"')";*/
+                
+        
+        psmt.executeUpdate();
+        System.out.println(s);
+        //jLabel11.setText("vendor created with vid= "+(v));
+        s= "insert into account values (n,"+emailtf.getText()+",'"+retypepasstf.getText()+"')";
+        psmt.executeUpdate(s);
+        System.out.println(s);
+        /*
+        s= "insert into vlogin values ('"+v+"','"+pa+"')";
+        System.out.println(s);
+        psmt.executeUpdate(s);
+        //v++;
+        
+        s= "update veid set vid= " +(v+1)+" where vid= "+v; 
+        System.out.println(s);
+        psmt.executeUpdate(s);
+        */
+        
+    }
+    else
+        JOptionPane.showMessageDialog(this,"Passwords mismatch \n Please retype your password!");
+}
+else 
+{
+    JOptionPane.showMessageDialog(this,"Please fill in all details");
+}
+    
+
+
+
+con.close();
+    
+}
+         
+  
+catch(Exception e){ System.out.println(e);}  
+    
+
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,11 +146,11 @@ public class Registerkaro extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         pincodetf = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        setusertf = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         RegisterButton = new javax.swing.JButton();
-        setpasstf = new javax.swing.JPasswordField();
+        retypepasstf = new javax.swing.JPasswordField();
         LoginNowButton = new javax.swing.JButton();
+        setpasstf = new javax.swing.JPasswordField();
 
         jLabel1.setText("jLabel1");
 
@@ -139,11 +236,11 @@ public class Registerkaro extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel10.setText("SET USERNAME");
+        jLabel10.setText("SET PASSWORD");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel11.setText("SET PASSWORD");
+        jLabel11.setText("Retype PASSWORD");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(240, 240, 240));
@@ -163,6 +260,12 @@ public class Registerkaro extends javax.swing.JFrame {
             }
         });
 
+        setpasstf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setpasstfActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -172,38 +275,36 @@ public class Registerkaro extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(116, 116, 116))
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(141, 141, 141)
+                .addComponent(RegisterButton)
+                .addGap(31, 31, 31)
+                .addComponent(LoginNowButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel10)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel9)
-                                .addComponent(jLabel12)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(setpasstf, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(setusertf)
-                                .addComponent(emailtf)
-                                .addComponent(lastnametf)
-                                .addComponent(mobiletf)
-                                .addComponent(citytf)
-                                .addComponent(pincodetf)
-                                .addComponent(firstnametf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(middlenametf, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(RegisterButton)
-                        .addGap(31, 31, 31)
-                        .addComponent(LoginNowButton)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                    .addComponent(jLabel11)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel10)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel8)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel12)))
+                .addGap(18, 39, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(retypepasstf, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                    .addComponent(emailtf)
+                    .addComponent(lastnametf)
+                    .addComponent(mobiletf)
+                    .addComponent(citytf)
+                    .addComponent(pincodetf)
+                    .addComponent(firstnametf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(middlenametf, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                    .addComponent(setpasstf))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,13 +340,13 @@ public class Registerkaro extends javax.swing.JFrame {
                     .addComponent(jLabel12)
                     .addComponent(pincodetf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(setusertf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(setpasstf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(setpasstf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(retypepasstf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RegisterButton)
@@ -287,9 +388,14 @@ public class Registerkaro extends javax.swing.JFrame {
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
             // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Details have been registered! \n Please proceed to login page!","Registration Successful", JOptionPane.INFORMATION_MESSAGE); 
+            this.connect();
+        //JOptionPane.showMessageDialog(this, "Details have been registered! \n Please proceed to login page!","Registration Successful", JOptionPane.INFORMATION_MESSAGE); 
 
     }//GEN-LAST:event_RegisterButtonActionPerformed
+
+    private void setpasstfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setpasstfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_setpasstfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,7 +454,7 @@ public class Registerkaro extends javax.swing.JFrame {
     private javax.swing.JTextField middlenametf;
     private javax.swing.JTextField mobiletf;
     private javax.swing.JTextField pincodetf;
+    private javax.swing.JPasswordField retypepasstf;
     private javax.swing.JPasswordField setpasstf;
-    private javax.swing.JTextField setusertf;
     // End of variables declaration//GEN-END:variables
 }

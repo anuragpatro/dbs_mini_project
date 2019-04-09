@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package registermini;
-
+import java.sql.*;
+import java.util.Random;
+import javax.swing.JOptionPane;
 /**
  *
  * @author SURYANSH
@@ -17,6 +19,52 @@ public class LoginKaro extends javax.swing.JFrame {
     public LoginKaro() {
         initComponents();
     }
+    
+    public void connect()
+    {
+    try{  
+//step1 load the driver class  
+Class.forName("oracle.jdbc.driver.OracleDriver");  
+  
+//step2 create  the connection object  
+Connection con=DriverManager.getConnection(  
+"jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");  
+  
+//step3 create the statement object  
+Statement stmt=con.createStatement();  
+//int a = Integer.parseInt(jTextField1.getText());
+String a= usertf.getText();
+String s= "select pass from account where email_id = "+a;
+//step4 execute query  
+ResultSet rs=stmt.executeQuery(s);
+String pa = new String(passtf.getPassword());
+if (rs.next())
+{
+    System.out.println(rs.getString(1));
+    if(pa.equals(rs.getString(1)))
+    {
+       Shopping skp = new Shopping();
+        skp.setVisible(true);
+        skp.pack();
+        skp.setLocationRelativeTo(null);
+        //rkf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+    }
+    else
+    {
+      JOptionPane.showMessageDialog(this,"Incorrect password");
+    }
+
+}
+else 
+    JOptionPane.showMessageDialog(this,"Email ID not in database");
+  
+//step5 close the connection object  
+con.close();  
+  
+}catch(Exception e){ System.out.println(e);}  
+  
+}  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,12 +80,12 @@ public class LoginKaro extends javax.swing.JFrame {
         passwordTf = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        usertf = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         LoginButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passtf = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,7 +118,13 @@ public class LoginKaro extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel3.setText("USERNAME");
+        jLabel3.setText("EMAIL ID");
+
+        usertf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usertfActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(240, 240, 240));
@@ -118,12 +172,12 @@ public class LoginKaro extends javax.swing.JFrame {
                         .addGroup(passwordTfLayout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addGap(18, 18, 18)
-                            .addComponent(jPasswordField1))
+                            .addComponent(passtf))
                         .addGroup(passwordTfLayout.createSequentialGroup()
                             .addComponent(jLabel3)
                             .addGap(18, 18, 18)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(109, Short.MAX_VALUE))
+                            .addComponent(usertf, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         passwordTfLayout.setVerticalGroup(
             passwordTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,11 +187,11 @@ public class LoginKaro extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(passwordTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(usertf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(passwordTfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passtf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addComponent(LoginButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
@@ -179,16 +233,13 @@ public class LoginKaro extends javax.swing.JFrame {
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
-        
-        Shopping skp = new Shopping();
-        skp.setVisible(true);
-        skp.pack();
-        skp.setLocationRelativeTo(null);
-        //rkf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.dispose();
-        
+        this.connect();       
         
     }//GEN-LAST:event_LoginButtonActionPerformed
+
+    private void usertfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usertfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usertfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,8 +281,8 @@ public class LoginKaro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField passtf;
     private javax.swing.JPanel passwordTf;
+    private javax.swing.JTextField usertf;
     // End of variables declaration//GEN-END:variables
 }
