@@ -1,5 +1,5 @@
 
-
+drop table account;
 drop table Cart;
 drop table Product;
 drop table Category;
@@ -17,9 +17,7 @@ create table Customer(
 	postal_id number(8),
 	city varchar(20),
 	ph_no number(12),
-        email_id varchar(320) not null,
-	pass varchar(10) not null,
-	primary key(cust_id)
+        primary key(cust_id)
 );
 
 create table Shipper(
@@ -72,4 +70,12 @@ create table Cart(
 	foreign key(prod_id) references Product(prod_id),
 	foreign key(XOrder_id) references XOrder(XOrder_id)
 );
+
+create table Account(
+             cust_id number(8) not null,
+             email_id varchar(320) not null, 
+             pass varchar(10) not null,
+             foreign key(cust_id) references Customer(cust_id)
+);
+             
 
