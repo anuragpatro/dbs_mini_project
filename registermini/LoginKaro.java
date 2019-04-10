@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor
+ * and open the template in the editor.
  */
 package registermini;
 import java.sql.*;
@@ -28,14 +28,14 @@ Class.forName("oracle.jdbc.driver.OracleDriver");
   
 //step2 create  the connection object  
 Connection con=DriverManager.getConnection(  
-"jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");  
+"jdbc:oracle:thin:@localhost:1521:xe","system","computers");  
   
 //step3 create the statement object  
 PreparedStatement pstm=null;  
 //int a = Integer.parseInt(jTextField1.getText());
 //String a= usertf.getText();
 
-pstm= con.prepareStatement("select pass from customer where email_id=?");
+pstm= con.prepareStatement("select pass from account where email_id=?");
 pstm.setString(1,usertf.getText());
 //step4 execute query  
 ResultSet rs=pstm.executeQuery();
