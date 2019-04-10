@@ -154,6 +154,7 @@ public class Payment extends javax.swing.JFrame {
         lg.setVisible(true);
         lg.pack();
         lg.setLocationRelativeTo(null);
+        this.dispose();
         //b.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     }//GEN-LAST:event_LoginActionPerformed
@@ -164,8 +165,9 @@ public class Payment extends javax.swing.JFrame {
         car.setVisible(true);
         car.pack();
         car.setLocationRelativeTo(null);
-        //b.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
+        //b.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
     }//GEN-LAST:event_GoToCart2ActionPerformed
 
     private void paymentdoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentdoneActionPerformed
