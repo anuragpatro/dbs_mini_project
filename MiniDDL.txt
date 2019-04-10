@@ -1,5 +1,5 @@
---<<<<<<< HEAD
-drop table Account;
+
+
 drop table Cart;
 drop table Product;
 drop table Category;
@@ -8,8 +8,7 @@ drop table XOrder;
 drop table Shipper;
 drop table Customer;
 
---=======
--->>>>>>> dcaf2b887d7b2a6d4a058927b6e810fcbec7c02a
+
 create table Customer(
 	fname varchar(20) not null,
 	mname varchar(20),
@@ -18,6 +17,8 @@ create table Customer(
 	postal_id number(8),
 	city varchar(20),
 	ph_no number(12),
+        email_id varchar(320) not null,
+	pass varchar(10) not null,
 	primary key(cust_id)
 );
 
@@ -72,11 +73,3 @@ create table Cart(
 	foreign key(XOrder_id) references XOrder(XOrder_id)
 );
 
-create table Account(
-	cust_id number(8) not null,
-	email_id varchar(320) not null,
-	pass varchar(10) not null,
-	primary key(cust_id),
-	foreign key(cust_id) references Customer(cust_id)
-);
-	
