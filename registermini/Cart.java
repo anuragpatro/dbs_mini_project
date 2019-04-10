@@ -130,6 +130,7 @@ public class Cart extends javax.swing.JFrame {
         pay.setVisible(true);
         pay.pack();
         pay.setLocationRelativeTo(null);
+        this.dispose();
        //b.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //this.dispose();
         //Timer pause = new Timer(15000, (ActionListener) this);
