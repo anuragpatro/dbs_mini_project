@@ -30,17 +30,6 @@ INSERT INTO Shipper VALUES(504,'OCEAN-BLUE',5,'17 APRIL 2019');
 INSERT INTO Shipper VALUES(505,'STORMY',3,'20 APRIL 2019');
 
 
-
-INSERT INTO Account VALUES(100,'suryanshsharma132@gmail.com','suryansh');
-
-INSERT INTO Account VALUES(101,'anurag.patro7@gmail.com','anurag');
-
-INSERT INTO Account VALUES(102,'roshan.david@gmail.com','david');
-
-INSERT INTO Account VALUES(103,'avipai@gmail.com','iampai');
-
-
-
 INSERT INTO SUPPLIER VALUES(2000,'NIKE',5);
 
 INSERT INTO SUPPLIER VALUES(2001,'PHILIPS',4);
