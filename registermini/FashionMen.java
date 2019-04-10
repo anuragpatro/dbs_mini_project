@@ -5,17 +5,53 @@
  */
 package registermini;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author SURYANSH
  */
-public class FashionMen extends javax.swing.JFrame {
+public final class FashionMen extends javax.swing.JFrame {
 
     /**
      * Creates new form FashionMen
      */
     public FashionMen() {
         initComponents();
+        show_user();
+    }
+    public ArrayList<User> userList(){
+        ArrayList<User> usersList = new ArrayList<>();
+    try{  
+        Class.forName("oracle.jdbc.driver.OracleDriver");  
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
+        String q = "select prod_id,prod_name,price from product where cat_id in (select cat_id from category where cat_name = 'FASHION-MEN')";       
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(q);
+        User user;
+        while(rs.next()){
+            user = new User(rs.getInt("prod_id"),rs.getString("prod_name"),rs.getFloat("price"));
+            usersList.add(user);
+        }
+}catch(Exception e){ System.out.println(e);}  
+        return usersList;
+    }
+    public void show_user(){
+        ArrayList<User> list = userList();
+        DefaultTableModel model = (DefaultTableModel)mentable.getModel();
+        Object[] row = new Object[3];
+        for(int i=0;i<list.size();i++){
+            row[0] = list.get(i).getprod_id();
+            row[1] = list.get(i).getname();
+            row[2] = list.get(i).getprice();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -31,6 +67,8 @@ public class FashionMen extends javax.swing.JFrame {
         GoToCat4 = new javax.swing.JButton();
         GoToCart4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        mentable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -56,6 +94,16 @@ public class FashionMen extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(240, 240, 240));
         jLabel2.setText("MEN'S FASHION");
 
+        mentable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Product ID", "Product Title", "Price"
+            }
+        ));
+        jScrollPane1.setViewportView(mentable);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -70,13 +118,19 @@ public class FashionMen extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(140, 140, 140))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(GoToCat4)
                     .addComponent(GoToCart4))
@@ -184,5 +238,7 @@ public class FashionMen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable mentable;
     // End of variables declaration//GEN-END:variables
 }

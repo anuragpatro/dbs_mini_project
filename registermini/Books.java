@@ -5,17 +5,53 @@
  */
 package registermini;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author SURYANSH
  */
-public class Books extends javax.swing.JFrame {
+public final class Books extends javax.swing.JFrame {
 
     /**
      * Creates new form Books
      */
     public Books() {
         initComponents();
+        show_user();
+    }
+    public ArrayList<User> userList(){
+        ArrayList<User> usersList = new ArrayList<>();
+    try{  
+        Class.forName("oracle.jdbc.driver.OracleDriver");  
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
+        String q = "select prod_id,prod_name,price from product where cat_id in (select cat_id from category where cat_name = 'BOOKS')";       
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(q);
+        User user;
+        while(rs.next()){
+            user = new User(rs.getInt("prod_id"),rs.getString("prod_name"),rs.getFloat("price"));
+            usersList.add(user);
+        }
+}catch(Exception e){ System.out.println(e);}  
+        return usersList;
+    }
+    public void show_user(){
+        ArrayList<User> list = userList();
+        DefaultTableModel model = (DefaultTableModel)booktable.getModel();
+        Object[] row = new Object[3];
+        for(int i=0;i<list.size();i++){
+            row[0] = list.get(i).getprod_id();
+            row[1] = list.get(i).getname();
+            row[2] = list.get(i).getprice();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -33,6 +69,8 @@ public class Books extends javax.swing.JFrame {
         GotoCat3 = new javax.swing.JButton();
         GoToCart3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        booktable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,7 +85,7 @@ public class Books extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(187, 187, 187))
+                .addGap(246, 246, 246))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,6 +115,16 @@ public class Books extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(240, 240, 240));
         jLabel2.setText("BOOKS");
 
+        booktable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Product ID", "Product Title", "Price"
+            }
+        ));
+        jScrollPane1.setViewportView(booktable);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -84,20 +132,26 @@ public class Books extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(GotoCat3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 343, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 433, Short.MAX_VALUE)
                 .addComponent(GoToCart3)
                 .addGap(24, 24, 24))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(222, 222, 222))
+                .addGap(277, 277, 277))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(GotoCat3)
                     .addComponent(GoToCart3))
@@ -180,9 +234,11 @@ public class Books extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GoToCart3;
     private javax.swing.JButton GotoCat3;
+    private javax.swing.JTable booktable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

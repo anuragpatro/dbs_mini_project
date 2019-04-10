@@ -5,17 +5,53 @@
  */
 package registermini;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author SURYANSH
  */
-public class FashionWomen extends javax.swing.JFrame {
+public final class FashionWomen extends javax.swing.JFrame {
 
     /**
      * Creates new form FashionWomen
      */
     public FashionWomen() {
         initComponents();
+        show_user();
+    }
+    public ArrayList<User> userList(){
+        ArrayList<User> usersList = new ArrayList<>();
+    try{  
+        Class.forName("oracle.jdbc.driver.OracleDriver");  
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
+        String q = "select prod_id,prod_name,price from product where cat_id in (select cat_id from category where cat_name = 'FASHION-WOMEN')";       
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(q);
+        User user;
+        while(rs.next()){
+            user = new User(rs.getInt("prod_id"),rs.getString("prod_name"),rs.getFloat("price"));
+            usersList.add(user);
+        }
+}catch(Exception e){ System.out.println(e);}  
+        return usersList;
+    }
+    public void show_user(){
+        ArrayList<User> list = userList();
+        DefaultTableModel model = (DefaultTableModel)womentable.getModel();
+        Object[] row = new Object[3];
+        for(int i=0;i<list.size();i++){
+            row[0] = list.get(i).getprod_id();
+            row[1] = list.get(i).getname();
+            row[2] = list.get(i).getprice();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -31,6 +67,8 @@ public class FashionWomen extends javax.swing.JFrame {
         GoToCat5 = new javax.swing.JButton();
         GoToCart5 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        womentable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -56,6 +94,16 @@ public class FashionWomen extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(240, 240, 240));
         jLabel2.setText("WOMEN'S FASHION");
 
+        womentable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Product ID", "Product Title", "Price"
+            }
+        ));
+        jScrollPane1.setViewportView(womentable);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -70,6 +118,11 @@ public class FashionWomen extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(106, 106, 106))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(85, 85, 85)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(85, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,6 +134,11 @@ public class FashionWomen extends javax.swing.JFrame {
                     .addComponent(GoToCat5)
                     .addComponent(GoToCart5))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(72, 72, 72)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(72, Short.MAX_VALUE)))
         );
 
         jPanel1.setBackground(new java.awt.Color(248, 148, 6));
@@ -184,5 +242,7 @@ public class FashionWomen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable womentable;
     // End of variables declaration//GEN-END:variables
 }

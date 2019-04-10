@@ -165,9 +165,8 @@ public class Payment extends javax.swing.JFrame {
         car.setVisible(true);
         car.pack();
         car.setLocationRelativeTo(null);
-        this.dispose();
         //b.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       
+        this.dispose();
     }//GEN-LAST:event_GoToCart2ActionPerformed
 
     private void paymentdoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentdoneActionPerformed

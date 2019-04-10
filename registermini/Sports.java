@@ -5,17 +5,53 @@
  */
 package registermini;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author MAHE
  */
-public class Sports extends javax.swing.JFrame {
+public final class Sports extends javax.swing.JFrame {
 
     /**
      * Creates new form Sports
      */
     public Sports() {
         initComponents();
+        show_user();
+    }
+    public ArrayList<User> userList(){
+        ArrayList<User> usersList = new ArrayList<>();
+    try{  
+        Class.forName("oracle.jdbc.driver.OracleDriver");  
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
+        String q = "select prod_id,prod_name,price from product where cat_id in (select cat_id from category where cat_name = 'SPORTS')";       
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(q);
+        User user;
+        while(rs.next()){
+            user = new User(rs.getInt("prod_id"),rs.getString("prod_name"),rs.getFloat("price"));
+            usersList.add(user);
+        }
+}catch(Exception e){ System.out.println(e);}  
+        return usersList;
+    }
+    public void show_user(){
+        ArrayList<User> list = userList();
+        DefaultTableModel model = (DefaultTableModel)sporttable.getModel();
+        Object[] row = new Object[3];
+        for(int i=0;i<list.size();i++){
+            row[0] = list.get(i).getprod_id();
+            row[1] = list.get(i).getname();
+            row[2] = list.get(i).getprice();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -33,6 +69,8 @@ public class Sports extends javax.swing.JFrame {
         GotoCat2 = new javax.swing.JButton();
         GoToCart2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        sporttable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +115,16 @@ public class Sports extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(240, 240, 240));
         jLabel2.setText("SPORTS");
 
+        sporttable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Product ID", "Product Title", "Price"
+            }
+        ));
+        jScrollPane1.setViewportView(sporttable);
+
         javax.swing.GroupLayout jpanel2Layout = new javax.swing.GroupLayout(jpanel2);
         jpanel2.setLayout(jpanel2Layout);
         jpanel2Layout.setHorizontalGroup(
@@ -91,6 +139,11 @@ public class Sports extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(227, 227, 227))
+            .addGroup(jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpanel2Layout.createSequentialGroup()
+                    .addGap(78, 78, 78)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(78, Short.MAX_VALUE)))
         );
         jpanel2Layout.setVerticalGroup(
             jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,6 +155,11 @@ public class Sports extends javax.swing.JFrame {
                     .addComponent(GotoCat2)
                     .addComponent(GoToCart2))
                 .addContainerGap())
+            .addGroup(jpanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpanel2Layout.createSequentialGroup()
+                    .addGap(63, 63, 63)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(64, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,6 +241,8 @@ public class Sports extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpanel2;
+    private javax.swing.JTable sporttable;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,17 +5,53 @@
  */
 package registermini;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author SURYANSH
  */
-public class Electronics extends javax.swing.JFrame {
+public final class Electronics extends javax.swing.JFrame {
 
     /**
      * Creates new form Electronics
      */
     public Electronics() {
         initComponents();
+        show_user();
+    }
+    public ArrayList<User> userList(){
+        ArrayList<User> usersList = new ArrayList<>();
+    try{  
+        Class.forName("oracle.jdbc.driver.OracleDriver");  
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
+        String q = "select prod_id,prod_name,price from product where cat_id in (select cat_id from category where cat_name = 'ELECTRONICS')";       
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(q);
+        User user;
+        while(rs.next()){
+            user = new User(rs.getInt("prod_id"),rs.getString("prod_name"),rs.getFloat("price"));
+            usersList.add(user);
+        }
+}catch(Exception e){ System.out.println(e);}  
+        return usersList;
+    }
+    public void show_user(){
+        ArrayList<User> list = userList();
+        DefaultTableModel model = (DefaultTableModel)electable.getModel();
+        Object[] row = new Object[3];
+        for(int i=0;i<list.size();i++){
+            row[0] = list.get(i).getprod_id();
+            row[1] = list.get(i).getname();
+            row[2] = list.get(i).getprice();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -33,6 +69,8 @@ public class Electronics extends javax.swing.JFrame {
         GoToCart1 = new javax.swing.JButton();
         GotoCat1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        electable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,17 +82,17 @@ public class Electronics extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(339, 339, 339)
                 .addComponent(jLabel1)
-                .addGap(194, 194, 194))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
@@ -77,31 +115,48 @@ public class Electronics extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(240, 240, 240));
         jLabel2.setText("ELECTRONICS");
 
+        electable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Product ID", "Product Title", "Price"
+            }
+        ));
+        jScrollPane1.setViewportView(electable);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(37, 37, 37)
                 .addComponent(GotoCat1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(GoToCart1)
-                .addGap(23, 23, 23))
+                .addGap(43, 43, 43))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(187, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(159, 159, 159))
+                .addContainerGap(224, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(304, 304, 304))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(213, 213, 213))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GotoCat1)
-                    .addComponent(GoToCart1))
-                .addContainerGap())
+                    .addComponent(GoToCart1)
+                    .addComponent(GotoCat1))
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -124,8 +179,8 @@ public class Electronics extends javax.swing.JFrame {
 
     private void GotoCat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GotoCat1ActionPerformed
         // TODO add your handling code here:
-        
-         Shopping shop = new Shopping();
+
+        Shopping shop = new Shopping();
         shop.setVisible(true);
         shop.pack();
         shop.setLocationRelativeTo(null);
@@ -135,7 +190,7 @@ public class Electronics extends javax.swing.JFrame {
 
     private void GoToCart1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoToCart1ActionPerformed
         // TODO add your handling code here:
-          Cart car = new Cart();
+        Cart car = new Cart();
         car.setVisible(true);
         car.pack();
         car.setLocationRelativeTo(null);
@@ -181,9 +236,11 @@ public class Electronics extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GoToCart1;
     private javax.swing.JButton GotoCat1;
+    private javax.swing.JTable electable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
