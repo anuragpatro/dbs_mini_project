@@ -24,7 +24,8 @@ public class Cart extends javax.swing.JFrame {
      */
     public Cart() {
         initComponents();
-        showUser();
+        show_user();
+       
     }
 
      public ArrayList<User11> userList(){
@@ -32,7 +33,7 @@ public class Cart extends javax.swing.JFrame {
     try{  
         Class.forName("oracle.jdbc.driver.OracleDriver");  
         Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","computers");
-        String q = "select prod_id,prod_name,price from cart";
+        String q = "select prod_id,prod_name,price from product where prod_id in (select prod_id from cart)";
        
         Statement st = con.createStatement();  
         ResultSet rs = st.executeQuery(q);
@@ -70,7 +71,15 @@ public class Cart extends javax.swing.JFrame {
         ProceedButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
+        ShipperTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane2 = new javax.swing.JScrollPane();
         CartTable = new javax.swing.JTable();
+        Shipper2 = new javax.swing.JButton();
+        Shipper3 = new javax.swing.JButton();
+        Shipper4 = new javax.swing.JButton();
+        Shipper1 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -93,9 +102,27 @@ public class Cart extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel2.setText("YOUR CART");
+        jLabel2.setText("CHOOSE YOUR SHIPPER");
+
+        ShipperTable.setBackground(new java.awt.Color(204, 255, 204));
+        ShipperTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Id", "500", "502", "503", "504"},
+                {"Rating", "4", "4.5", "3", "5"},
+                {"Delivery Date", "18 Apr 19", "17 April 19", "19 Apr19", "17 Apr 19"},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Shippers ----", "Ever_Marine", "Blue-Whale", "Blue_Sea", "Ocean-Blue"
+            }
+        ));
+        jScrollPane1.setViewportView(ShipperTable);
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel3.setText("YOUR CART");
 
         CartTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,7 +132,15 @@ public class Cart extends javax.swing.JFrame {
                 "Product Id", "Product Name", "Price (In Rupees)"
             }
         ));
-        jScrollPane1.setViewportView(CartTable);
+        jScrollPane2.setViewportView(CartTable);
+
+        Shipper2.setText("Blue-Whale");
+
+        Shipper3.setText("Blue_Sea");
+
+        Shipper4.setText("Ocean-Blue");
+
+        Shipper1.setText("Ever_Marine");
 
         javax.swing.GroupLayout bodypanelLayout = new javax.swing.GroupLayout(bodypanel);
         bodypanel.setLayout(bodypanelLayout);
@@ -117,28 +152,65 @@ public class Cart extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ProceedButton)
                 .addGap(41, 41, 41))
+            .addGroup(bodypanelLayout.createSequentialGroup()
+                .addGroup(bodypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bodypanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bodypanelLayout.createSequentialGroup()
+                        .addGap(253, 253, 253)
+                        .addComponent(Shipper1)
+                        .addGap(57, 57, 57)
+                        .addComponent(Shipper2)
+                        .addGap(46, 46, 46)
+                        .addComponent(Shipper3)
+                        .addGap(42, 42, 42)
+                        .addComponent(Shipper4)))
+                .addContainerGap(18, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodypanelLayout.createSequentialGroup()
-                .addContainerGap(139, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(bodypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodypanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(96, 96, 96))
+                        .addComponent(jLabel3)
+                        .addGap(322, 322, 322))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodypanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(97, 97, 97))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodypanelLayout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(309, 309, 309))))
+                        .addGap(287, 287, 287))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodypanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(98, 98, 98))))
         );
         bodypanelLayout.setVerticalGroup(
             bodypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodypanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
-                .addGroup(bodypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GoToCat6)
-                    .addComponent(ProceedButton))
-                .addContainerGap())
+            .addGroup(bodypanelLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(bodypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bodypanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(bodypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(GoToCat6)
+                            .addComponent(ProceedButton))
+                        .addContainerGap())
+                    .addGroup(bodypanelLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(bodypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Shipper2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Shipper1)
+                            .addComponent(Shipper3)
+                            .addComponent(Shipper4))
+                        .addContainerGap(90, Short.MAX_VALUE))))
         );
 
         header.setBackground(new java.awt.Color(248, 148, 6));
@@ -241,14 +313,20 @@ public class Cart extends javax.swing.JFrame {
     private javax.swing.JTable CartTable;
     private javax.swing.JButton GoToCat6;
     private javax.swing.JButton ProceedButton;
+    private javax.swing.JButton Shipper1;
+    private javax.swing.JButton Shipper2;
+    private javax.swing.JButton Shipper3;
+    private javax.swing.JButton Shipper4;
+    private javax.swing.JTable ShipperTable;
     private javax.swing.JPanel bodypanel;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
-    private void showUser() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }
