@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package registermini;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.*;
 /**
  *
@@ -18,6 +22,25 @@ public class Payment extends javax.swing.JFrame {
      */
     public Payment() {
         initComponents();
+    }
+    
+    
+    public void trigg(){
+        
+        Connection con = null;
+        Statement stmt = null;
+        
+         try{  
+        Class.forName("oracle.jdbc.driver.OracleDriver");  
+        con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","computers");
+         
+         stmt = con.createStatement();
+         stmt.execute("DELETE FROM CART");
+         stmt.execute("DELETE FROM XOrder");
+        }
+        catch( ClassNotFoundException | SQLException e){ System.out.println(e);}  
+         
+         
     }
 
     /**
@@ -154,7 +177,9 @@ public class Payment extends javax.swing.JFrame {
         lg.setVisible(true);
         lg.pack();
         lg.setLocationRelativeTo(null);
+        this.trigg();
         this.dispose();
+        
         //b.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     }//GEN-LAST:event_LoginActionPerformed
