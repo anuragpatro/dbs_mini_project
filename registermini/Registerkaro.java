@@ -176,8 +176,8 @@ catch(Exception e){ System.out.println(e);}
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(400, 687));
-        setPreferredSize(new java.awt.Dimension(400, 687));
+        setMinimumSize(new java.awt.Dimension(415, 687));
+        setPreferredSize(new java.awt.Dimension(415, 687));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(248, 148, 6));
