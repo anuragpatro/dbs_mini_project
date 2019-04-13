@@ -66,7 +66,7 @@ con.close();
   
 }catch(Exception e){ System.out.println(e);}  
   
-}  
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
