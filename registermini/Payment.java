@@ -6,6 +6,8 @@
 package registermini;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.*;
@@ -42,6 +44,27 @@ public class Payment extends javax.swing.JFrame {
          
          
     }
+    public void getdata(){
+        int calc = 0;
+         try{  
+        Class.forName("oracle.jdbc.driver.OracleDriver");  
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
+        String details ="select ddate as dddate,rating,ship_name from Shipper NATURAL JOIN XOrder";
+        Statement st = con.createStatement(); 
+        ResultSet rs = st.executeQuery(details);
+        while (rs.next()){
+            String ddate = rs.getString("dddate");
+            int rate = rs.getInt("rating");
+            String ship_name = rs.getString("ship_name");
+            shipname.setText(ship_name);
+            shiprating.setText(Integer.toString(rate));
+            deldate.setText(ddate);
+        }
+        
+         
+  }
+         catch( ClassNotFoundException | SQLException e){ System.out.println(e);} 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,6 +83,12 @@ public class Payment extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         qrcode = new javax.swing.JLabel();
         paymentdone = new javax.swing.JButton();
+        label6 = new javax.swing.JLabel();
+        label7 = new javax.swing.JLabel();
+        label8 = new javax.swing.JLabel();
+        shiprating = new javax.swing.JTextField();
+        shipname = new javax.swing.JTextField();
+        deldate = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Payment");
@@ -75,14 +104,14 @@ public class Payment extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(194, 194, 194))
+                .addGap(218, 218, 218))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         body.setBackground(new java.awt.Color(44, 62, 80));
@@ -114,18 +143,35 @@ public class Payment extends javax.swing.JFrame {
             }
         });
 
+        label6.setText("Shipper Name : ");
+
+        label7.setText("Shipper Rating :");
+
+        label8.setText("Delivery Date :");
+
+        shiprating.setEnabled(false);
+
+        shipname.setForeground(new java.awt.Color(128, 128, 128));
+        shipname.setEnabled(false);
+        shipname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shipnameActionPerformed(evt);
+            }
+        });
+
+        deldate.setEnabled(false);
+        deldate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deldateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
         body.setLayout(bodyLayout);
         bodyLayout.setHorizontalGroup(
             bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bodyLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(Login)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(GoToCart2)
-                .addGap(24, 24, 24))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodyLayout.createSequentialGroup()
-                .addContainerGap(189, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(bodyLayout.createSequentialGroup()
@@ -135,7 +181,30 @@ public class Payment extends javax.swing.JFrame {
                                 .addGap(12, 12, 12)
                                 .addComponent(paymentdone, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(qrcode))))
-                .addGap(175, 175, 175))
+                .addGap(197, 197, 197))
+            .addGroup(bodyLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bodyLayout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(label6))
+                            .addComponent(shipname, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                        .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(label7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(shiprating))
+                        .addGap(93, 93, 93)
+                        .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label8)
+                            .addComponent(deldate, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(72, 72, 72))
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addComponent(Login)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GoToCart2)
+                        .addGap(24, 24, 24))))
         );
         bodyLayout.setVerticalGroup(
             bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +214,17 @@ public class Payment extends javax.swing.JFrame {
                 .addComponent(qrcode, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(paymentdone)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(13, 13, 13)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label7)
+                    .addComponent(label6)
+                    .addComponent(label8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(shiprating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deldate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shipname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Login)
                     .addComponent(GoToCart2))
@@ -163,8 +242,8 @@ public class Payment extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -197,10 +276,19 @@ public class Payment extends javax.swing.JFrame {
     private void paymentdoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentdoneActionPerformed
         // TODO add your handling code here:
         //MessageBox msg = new MessageBox();
+        this.getdata();
         JOptionPane.showMessageDialog(this, "Your payment is done and your goods will be shipped soon. \n Thanks for working with us! \n Good day!",  
                                    "THANK YOU!", JOptionPane.INFORMATION_MESSAGE); 
 
     }//GEN-LAST:event_paymentdoneActionPerformed
+
+    private void shipnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shipnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_shipnameActionPerformed
+
+    private void deldateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deldateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deldateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,10 +331,16 @@ public class Payment extends javax.swing.JFrame {
     private javax.swing.JButton GoToCart2;
     private javax.swing.JButton Login;
     private javax.swing.JPanel body;
+    private javax.swing.JTextField deldate;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel label6;
+    private javax.swing.JLabel label7;
+    private javax.swing.JLabel label8;
     private javax.swing.JButton paymentdone;
     private javax.swing.JLabel qrcode;
+    private javax.swing.JTextField shipname;
+    private javax.swing.JTextField shiprating;
     // End of variables declaration//GEN-END:variables
 }
