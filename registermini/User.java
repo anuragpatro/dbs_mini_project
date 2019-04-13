@@ -9,15 +9,17 @@ package registermini;
  *
  * @author anurag
  */
-class User {
-    private int prod_id;
-    private String prod_name;
-    private float price;
+public class User {
+    public int prod_id;
+    public String prod_name;
+    public float price;
+    public String sup_name;
     
-    public User(int prod_id,String prod_name, float price){
+    public User(int prod_id,String prod_name, float price,String sup_name){
         this.prod_id = prod_id;
         this.prod_name = prod_name;
         this.price = price;
+        this.sup_name = sup_name;
     }
     
     public int getprod_id(){
@@ -30,5 +32,8 @@ class User {
         return price;
     }
     
+     public String getsup_name(){
+        return sup_name;
+    }
 }
 
