@@ -33,7 +33,7 @@ public class Cart extends javax.swing.JFrame {
         ArrayList<User11> usersList = new ArrayList<>();
     try{  
         Class.forName("oracle.jdbc.driver.OracleDriver");  
-        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","computers");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
         String q = "select prod_id,prod_name,price from product where prod_id in (select prod_id from cart)";
        
         Statement st = con.createStatement();  
@@ -63,7 +63,7 @@ public class Cart extends javax.swing.JFrame {
         int calc = 0;
          try{  
         Class.forName("oracle.jdbc.driver.OracleDriver");  
-        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","computers");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
         String sum ="select sum(ptot_price) from cart";
         Statement st = con.createStatement(); 
         ResultSet rs = st.executeQuery(sum);
@@ -72,8 +72,10 @@ public class Cart extends javax.swing.JFrame {
             
             calc = rs.getInt("sum(ptot_price)");
              String calcs= Integer.toString(calc);
-        sumtf.setText(calcs);
+        jTextField1.setText(calcs);
         }
+        
+         
   }
          catch( ClassNotFoundException | SQLException e){ System.out.println(e);} 
     }
@@ -83,13 +85,14 @@ public class Cart extends javax.swing.JFrame {
         
          try{  
         Class.forName("oracle.jdbc.driver.OracleDriver");  
-        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","computers");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
          
         String q1= "INSERT INTO XOrder VALUES(?,?,?)";
         
         PreparedStatement psmt= con.prepareStatement(q1);
         psmt.setString(1,"18 APRIL 2019");
-        psmt.setString(2,sumtf.getText());
+        String summer = jTextField1.getText();
+        psmt.setInt(2,Integer.parseInt(summer));
         psmt.setString(3,Integer.toString(500));
         psmt.executeUpdate();
         System.out.println(q1);
@@ -104,13 +107,14 @@ public class Cart extends javax.swing.JFrame {
         
          try{  
         Class.forName("oracle.jdbc.driver.OracleDriver");  
-        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","computers");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
          
         String q2= "INSERT INTO XOrder VALUES(?,?,?)";
         
         PreparedStatement psmt= con.prepareStatement(q2);
         psmt.setString(1,"17 APRIL 2019");
-        psmt.setString(2,sumtf.getText());
+        String summer = jTextField1.getText();
+        psmt.setFloat(2,Integer.parseInt(summer));
         psmt.setString(3,Integer.toString(502));
         psmt.executeUpdate();
         System.out.println(q2);
@@ -125,13 +129,14 @@ public class Cart extends javax.swing.JFrame {
         
          try{  
         Class.forName("oracle.jdbc.driver.OracleDriver");  
-        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","computers");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
          
         String q3= "INSERT INTO XOrder VALUES(?,?,?)";
         
         PreparedStatement psmt= con.prepareStatement(q3);
         psmt.setString(1,"19 APRIL 2019");
-        psmt.setString(2,sumtf.getText());
+        String summer = jTextField1.getText();
+        psmt.setInt(2,Integer.parseInt(summer));
         psmt.setString(3,Integer.toString(503));
         psmt.executeUpdate();
         System.out.println(q3);
@@ -146,13 +151,14 @@ public class Cart extends javax.swing.JFrame {
         
          try{  
         Class.forName("oracle.jdbc.driver.OracleDriver");  
-        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","computers");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
          
         String q4= "INSERT INTO XOrder VALUES(?,?,?)";
         
         PreparedStatement psmt= con.prepareStatement(q4);
         psmt.setString(1,"17 APRIL 2019");
-        psmt.setString(2,sumtf.getText());
+        String summer = jTextField1.getText();
+        psmt.setInt(2,Integer.parseInt(summer));
         psmt.setString(3,Integer.toString(504));
         psmt.executeUpdate();
         System.out.println(q4);
@@ -194,8 +200,8 @@ public class Cart extends javax.swing.JFrame {
         Shipper3 = new javax.swing.JButton();
         Shipper4 = new javax.swing.JButton();
         Shipper1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        sumtf = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -223,6 +229,7 @@ public class Cart extends javax.swing.JFrame {
         jLabel2.setText("CHOOSE YOUR SHIPPER");
 
         ShipperTable.setBackground(new java.awt.Color(204, 255, 204));
+        ShipperTable.setForeground(new java.awt.Color(0, 0, 0));
         ShipperTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Id", "500", "502", "503", "504"},
@@ -278,9 +285,18 @@ public class Cart extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel4.setText("YOU NEED TO PAY:");
+        jButton1.setText("YOU NEED TO PAY");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout bodypanelLayout = new javax.swing.GroupLayout(bodypanel);
         bodypanel.setLayout(bodypanelLayout);
@@ -323,10 +339,10 @@ public class Cart extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(98, 98, 98))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodypanelLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(28, 28, 28)
-                        .addComponent(sumtf, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(173, 173, 173))))
+                        .addComponent(jButton1)
+                        .addGap(26, 26, 26)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(165, 165, 165))))
         );
         bodypanelLayout.setVerticalGroup(
             bodypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,9 +361,9 @@ public class Cart extends javax.swing.JFrame {
                     .addGroup(bodypanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(bodypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(sumtf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17)
+                            .addComponent(jButton1)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
@@ -359,7 +375,7 @@ public class Cart extends javax.swing.JFrame {
                             .addComponent(Shipper1)
                             .addComponent(Shipper3)
                             .addComponent(Shipper4))
-                        .addContainerGap(86, Short.MAX_VALUE))))
+                        .addContainerGap(85, Short.MAX_VALUE))))
         );
 
         header.setBackground(new java.awt.Color(248, 148, 6));
@@ -443,6 +459,16 @@ public class Cart extends javax.swing.JFrame {
         this.connect4();
     }//GEN-LAST:event_Shipper4ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.sum();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+        this.sum();
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -489,14 +515,14 @@ public class Cart extends javax.swing.JFrame {
     private javax.swing.JTable ShipperTable;
     private javax.swing.JPanel bodypanel;
     private javax.swing.JPanel header;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField sumtf;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
     

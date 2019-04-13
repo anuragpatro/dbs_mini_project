@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -30,7 +31,7 @@ public final class FashionMen extends javax.swing.JFrame {
         ArrayList<User> usersList = new ArrayList<>();
     try{  
         Class.forName("oracle.jdbc.driver.OracleDriver");  
-        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","computers");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
         String q = "select prod_id,prod_name,price,sup_name from product natural join supplier where cat_id in (select cat_id from category where cat_name = 'FASHION-MEN')";       
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery(q);
@@ -109,6 +110,11 @@ public final class FashionMen extends javax.swing.JFrame {
                 "Product ID", "Product Title", "Price", "Supplier Name"
             }
         ));
+        mentable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mentableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(mentable);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
@@ -140,6 +146,11 @@ public final class FashionMen extends javax.swing.JFrame {
         });
 
         jButton1.setText("ADD TO CART");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -273,6 +284,40 @@ public final class FashionMen extends javax.swing.JFrame {
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void mentableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mentableMouseClicked
+        // TODO add your handling code here:
+        int i = mentable.getSelectedRow();
+        TableModel model = mentable.getModel();
+        jTextField2.setText(model.getValueAt(i,0).toString());
+        jTextField1.setText(model.getValueAt(i,1).toString());
+        jTextField3.setText(model.getValueAt(i,2).toString());
+        jTextField4.setText(model.getValueAt(i,3).toString());
+    }//GEN-LAST:event_mentableMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");  
+  
+//step2 create  the connection object  
+Connection con=DriverManager.getConnection(  
+"jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");  
+  
+//step3 create the statement object  
+PreparedStatement pstm=null;  
+//int a = Integer.parseInt(jTextField1.getText());
+//String a= usertf.getText();
+
+pstm= con.prepareStatement("insert into cart values(?,?)");
+pstm.setString(1,jTextField2.getText());
+pstm.setString(2,jTextField3.getText());
+ResultSet rs=pstm.executeQuery();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

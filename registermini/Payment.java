@@ -32,7 +32,7 @@ public class Payment extends javax.swing.JFrame {
         
          try{  
         Class.forName("oracle.jdbc.driver.OracleDriver");  
-        con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","computers");
+        con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");
          
          stmt = con.createStatement();
          stmt.execute("DELETE FROM CART");

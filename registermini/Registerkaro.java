@@ -30,7 +30,7 @@ Class.forName("oracle.jdbc.driver.OracleDriver");
   
 //step2 create  the connection object  
 Connection con=DriverManager.getConnection(  
-"jdbc:oracle:thin:@localhost:1521:xe","system","computers");  
+"jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");  
 
 String s,t;
 //step3 create the statement object  
