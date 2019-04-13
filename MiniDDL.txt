@@ -17,8 +17,7 @@ create table Customer(
 	postal_id number(8),
 	city varchar(20),
 	ph_no number(12),
-        primary key(cust_id)
-);
+        primary key(cust_id));
 
 create table Shipper(
 	ship_id number(8) not null,
@@ -31,22 +30,18 @@ create table Shipper(
 create table XOrder(
 	ddate date ,
 	tot_price numeric(10,2),
-	ship_id number(8) ,
-	primary key(XOrder_id),
-	);
+	ship_id number(8) );
 
 create table Supplier(
 	sup_id number(8) not null,
 	sup_name varchar(20),
 	rating number(8),
-	primary key(sup_id)
-);
+	primary key(sup_id));
 
 create table Category(
 	cat_id number(8) not null,
 	cat_name varchar(20),
-	primary key(cat_id)
-);
+	primary key(cat_id));
 
 create table Product(
 	prod_id number(8) not null,
@@ -56,22 +51,25 @@ create table Product(
 	cat_id number(8),
 	primary key(prod_id),
 	foreign key(sup_id) references Supplier(sup_id),
-	foreign key(cat_id) references Category(cat_id)
-);
+	foreign key(cat_id) references Category(cat_id));
 
 create table Cart(
 	prod_id number(8),
         ptot_price numeric(10,2) ,
 	primary key(prod_id),
 	foreign key(prod_id) references Product(prod_id)
-	
-);
+	);
 
 create table Account(
              cust_id number(8) not null,
              email_id varchar(320) not null, 
              pass varchar(10) not null,
-             foreign key(cust_id) references Customer(cust_id)
-);
+             foreign key(cust_id) references Customer(cust_id));
+
+
+CREATE TABLE PRODUCTS_SOLD (PROD_ID NUMBER(6),PRICE NUMBER(6));	     
+	     
+	     
+	     
              
 
