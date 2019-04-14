@@ -1,0 +1,19 @@
+
+(place this in backend)
+CREATE OR REPLACE procedure WELC IS
+BEGIN
+dbms_output.put_line('Welcome to Shopify!');
+end;
+/
+
+(place this in java code)
+set serveroutput on
+begin
+welc;
+end;
+/
+
+
+so the idea is print WELCOME TO SHOPIFY IN JFRAME IN A LABEL 
+PLACED IN TOP RIGHT CORNER.
+THE MESSAGE WILL BE DISPLAYED BY INVOKING THE PROCEDURE.
