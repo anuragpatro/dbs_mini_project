@@ -1,23 +1,19 @@
 
 (place this in backend)
-create or replace procedure cal is
-cursor c1 is select sum(ptot_price) as sum from cart;
-a number(5):=0;
-begin
-for q in c1
-loop
-a:=q.sum;
-dbms_output.put_line(a);
-end loop;
-end;
-/
-
-(place this in java code)
-set serveroutput on
-begin
-cal;
-end;
-/
+create or replace procedure "INSERTS"  
+(fname IN VARCHAR2,  
+ mname IN VARCHAR2,
+ lname IN VARCHAR2,
+ cust_id IN NUMBER,
+ postal_id IN NUMBER,
+ city  IN VARCHAR2,
+ ph_no IN NUMBER)
+ is  
+ begin  
+ insert into customer values(fname,mname,lname,cust_id,postal_id,city,ph_no);  
+ end;  
+ /
 
 
-the sum which we were calculating for cart..will be calculated by this now...try implementing it...
+
+
