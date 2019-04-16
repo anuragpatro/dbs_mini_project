@@ -30,7 +30,7 @@ Class.forName("oracle.jdbc.driver.OracleDriver");
   
 //step2 create  the connection object  
 Connection con=DriverManager.getConnection(  
-"jdbc:oracle:thin:@localhost:1521:xe","anurag","anurag");  
+"jdbc:oracle:thin:@localhost:1521:xe","system","computers");  
 
 String s,t;
 //step3 create the statement object  
@@ -63,16 +63,16 @@ if(c==9)
     String pa1 = new String(retypepasstf.getText());
     if(pa.equals(pa1))
     {
-        s = "insert into customer values(?,?,?,?,?,?,?)";
-        
-        PreparedStatement psmt= con.prepareStatement(s);
-        psmt.setString(1,firstnametf.getText());
-        psmt.setString(2,middlenametf.getText());
-        psmt.setString(3,lastnametf.getText());
-        psmt.setString(4,Integer.toString(100+n));
-        psmt.setString(5,pincodetf.getText());
-        psmt.setString(6,citytf.getText());
-        psmt.setString(7,mobiletf.getText());
+        //s = "insert into customer values(?,?,?,?,?,?,?)";
+        CallableStatement smt=con.prepareCall("{call INSERTS(?,?,?,?,?,?,?)}");
+        //PreparedStatement psmt= con.prepareStatement(s);
+        smt.setString(1,firstnametf.getText());
+        smt.setString(2,middlenametf.getText());
+        smt.setString(3,lastnametf.getText());
+        smt.setString(4,Integer.toString(100+n));
+        smt.setString(5,pincodetf.getText());
+        smt.setString(6,citytf.getText());
+        smt.setString(7,mobiletf.getText());
        // psmt.setString(8,emailtf.getText());
         //psmt.setString(9,retypepasstf.getText());
         
@@ -82,9 +82,9 @@ if(c==9)
                 "','"+mobiletf.getText()+"')";*/
                 
         
-        psmt.executeUpdate();
-        System.out.println(s);
-        psmt.close();
+        smt.execute();
+        System.out.println("success");
+        smt.close();
         //jLabel11.setText("vendor created with vid= "+(v));
         //s= "insert into account values (n,"+emailtf.getText()+",'"+retypepasstf.getText()+"')";
        /* t= "insert into account values(?,?,?)";
@@ -103,7 +103,9 @@ if(c==9)
         System.out.println(s);
         psmt.executeUpdate(s);
         */
+       
         t="insert into account values(?,?,?)";
+         PreparedStatement psmt= con.prepareStatement(t);
         psmt= con.prepareStatement(t);
         psmt.setString(1,Integer.toString(100+n));
         psmt.setString(2,emailtf.getText());
