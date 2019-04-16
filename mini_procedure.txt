@@ -1,19 +1,23 @@
 
 (place this in backend)
-CREATE OR REPLACE procedure WELC IS
-BEGIN
-dbms_output.put_line('Welcome to Shopify!');
+create or replace procedure cal is
+cursor c1 is select sum(ptot_price) as sum from cart;
+a number(5):=0;
+begin
+for q in c1
+loop
+a:=q.sum;
+dbms_output.put_line(a);
+end loop;
 end;
 /
 
 (place this in java code)
 set serveroutput on
 begin
-welc;
+cal;
 end;
 /
 
 
-so the idea is print WELCOME TO SHOPIFY IN JFRAME IN A LABEL 
-PLACED IN TOP RIGHT CORNER.
-THE MESSAGE WILL BE DISPLAYED BY INVOKING THE PROCEDURE.
+the sum which we were calculating for cart..will be calculated by this now...try implementing it...
