@@ -1,5 +1,5 @@
 
-(place this in backend)
+--(place this in backend)
 create or replace procedure "INSERTS"  
 (fname IN VARCHAR2,  
  mname IN VARCHAR2,
