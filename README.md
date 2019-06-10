@@ -1,4 +1,4 @@
-#Mini_Project_DBS
+# Mini_Project_DBS
 
 Database Systems project in Semester 4, for the aforementioned course. 
 Requirement :
